@@ -17,14 +17,14 @@ class NewsHeadlinesViewModelImpl @Inject constructor(
     override fun state(): LiveData<State> = stateLiveData
 
     override fun fetchNewsHeadlines() {
-        try {
-            coroutineScope.launch {
+        coroutineScope.launch {
+            try {
                 stateLiveData.value = State.Loading
                 val data = newsHeadlinesRepository.fetchNewsHeadlines()
                 stateLiveData.value = State.Success(data)
+            } catch (e: Exception) {
+                stateLiveData.value = State.Error
             }
-        } catch (e: Exception) {
-            stateLiveData.value = State.Error
         }
 
     }
