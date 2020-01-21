@@ -23,7 +23,7 @@ class NetworkModule {
 
     @Provides
     fun provideNewsApiService(moshi: Moshi, okHttpClient: OkHttpClient): NewsApiService {
-        val baseUrl = ""
+        val baseUrl = "https://newsapi.org/v2/"
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(baseUrl)
