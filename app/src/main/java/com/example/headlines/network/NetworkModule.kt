@@ -31,4 +31,8 @@ class NetworkModule {
             .build()
             .create(NewsApiService::class.java)
     }
+
+    @Provides
+    fun providesNewsHeadlinesRepository(newsHeadlinesRepositoryImpl: NewsHeadlinesRepositoryImpl)
+            : NewsHeadlinesRepository = newsHeadlinesRepositoryImpl
 }

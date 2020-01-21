@@ -5,5 +5,5 @@ import retrofit2.http.GET
 interface NewsApiService {
 
     @GET
-    fun getNewsHeadlines(): List<String>
+    suspend fun getNewsHeadlines(): List<String>
 }
