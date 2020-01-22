@@ -8,6 +8,6 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBindings {
-    @ContributesAndroidInjector(modules = [NewsHeadlinesViewModelModule::class, NetworkModule::class])
+    @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
 }
