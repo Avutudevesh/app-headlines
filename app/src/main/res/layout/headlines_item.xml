@@ -11,13 +11,15 @@
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="16dp">
 
+
     <ImageView
         android:id="@+id/headline_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:background="@drawable/gradient_background"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        android:foreground="@drawable/gradient_background"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
