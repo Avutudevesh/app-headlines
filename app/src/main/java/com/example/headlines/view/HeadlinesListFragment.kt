@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.headlines.R
+import com.example.headlines.network.Article
 import com.example.headlines.viewmodel.NewsHeadlinesViewModel
-import com.example.headlines.viewmodel.NewsHeadlinesViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.headlines_list_fragment.*
 import javax.inject.Inject
@@ -19,18 +19,16 @@ class HeadlinesListFragment : Fragment() {
     @Inject
     lateinit var headlinesListAdapter: HeadlinesListAdapter
     @Inject
-    lateinit var viewModelFactory: NewsHeadlinesViewModelFactory
+    lateinit var viewModel: NewsHeadlinesViewModel
 
     private lateinit var callback: OnHeadlineSelectedListener
-
-    private lateinit var viewModel: NewsHeadlinesViewModel
 
     fun setOnHeadlineSelectedListener(callback: OnHeadlineSelectedListener) {
         this.callback = callback
     }
 
     interface OnHeadlineSelectedListener {
-        fun onArticleSelected(position: Int)
+        fun onArticleSelected(article: Article)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,12 +51,13 @@ class HeadlinesListFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        ).get(NewsHeadlinesViewModel::class.java)
         viewModel.state().observe(this, Observer { onStateChanged(it) })
         viewModel.fetchNewsHeadlines()
+        viewModel.clickedArticleLiveData.observe(this, Observer { onArticleClicked(it) })
+    }
+
+    private fun onArticleClicked(article: Article) {
+        callback.onArticleSelected(article)
     }
 
     private fun onStateChanged(state: NewsHeadlinesViewModel.State) {
@@ -73,5 +72,10 @@ class HeadlinesListFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 }

@@ -1,9 +1,10 @@
 package com.example.headlines
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
+import com.example.headlines.network.Article
+import com.example.headlines.view.ArticleFragment
 import com.example.headlines.view.HeadlinesListFragment
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
@@ -15,7 +16,8 @@ class MainActivity : DaggerAppCompatActivity(), HeadlinesListFragment.OnHeadline
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_main)
         setUpActionBar()
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, HeadlinesListFragment()).commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, HeadlinesListFragment()).commit()
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -32,7 +34,10 @@ class MainActivity : DaggerAppCompatActivity(), HeadlinesListFragment.OnHeadline
         }
     }
 
-    override fun onArticleSelected(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onArticleSelected(article: Article) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, ArticleFragment.newInstance(article))
+            .addToBackStack(null)
+            .commit()
     }
 }

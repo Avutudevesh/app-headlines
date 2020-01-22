@@ -19,6 +19,10 @@ class NewsHeadlinesViewModelImpl @Inject constructor(
 
     override val clickedArticleLiveData = clickedArticleMutableLiveData
 
+    override fun setClickedArticle(article: Article) {
+        clickedArticleMutableLiveData.value = article
+    }
+
     override fun state(): LiveData<State> = stateLiveData
 
     override fun fetchNewsHeadlines() {

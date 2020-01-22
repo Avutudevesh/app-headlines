@@ -4,9 +4,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.headlines.network.Article
+import com.example.headlines.viewmodel.NewsHeadlinesViewModel
 import javax.inject.Inject
 
-class HeadlinesListAdapter @Inject constructor() :
+class HeadlinesListAdapter @Inject constructor(
+    private val viewModel: NewsHeadlinesViewModel
+) :
     ListAdapter<Article, HeadlinesViewHolder>(HeadlinesListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadlinesViewHolder {
@@ -15,7 +18,7 @@ class HeadlinesListAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: HeadlinesViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, viewModel)
     }
 
     override fun onViewRecycled(holder: HeadlinesViewHolder) {

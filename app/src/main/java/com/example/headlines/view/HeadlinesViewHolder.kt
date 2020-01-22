@@ -10,8 +10,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.headlines.R
 import com.example.headlines.network.Article
+import com.example.headlines.viewmodel.NewsHeadlinesViewModel
 
-class HeadlinesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class HeadlinesViewHolder(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
 
     companion object {
         fun from(parent: ViewGroup): HeadlinesViewHolder {
@@ -26,11 +28,14 @@ class HeadlinesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val publishDate: TextView = itemView.findViewById(R.id.publish_date)
     private val headlineImage: ImageView = itemView.findViewById(R.id.headline_image)
 
-    fun bind(item: Article) {
+    fun bind(item: Article, viewModel: NewsHeadlinesViewModel) {
         source.text = item.source.name
         title.text = item.title
         publishDate.text = item.publishedAt
         loadBackGroundImage(item.urlToImage)
+        itemView.setOnClickListener {
+            viewModel.setClickedArticle(item)
+        }
     }
 
     fun clearImageLoading() {

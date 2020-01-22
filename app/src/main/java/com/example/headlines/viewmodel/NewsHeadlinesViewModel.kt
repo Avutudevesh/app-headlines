@@ -19,4 +19,6 @@ abstract class NewsHeadlinesViewModel : ViewModel() {
     abstract fun fetchNewsHeadlines()
 
     abstract val clickedArticleLiveData: LiveData<Article>
+
+    abstract fun setClickedArticle(article: Article)
 }
