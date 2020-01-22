@@ -7,7 +7,14 @@ data class NewsData(
 )
 
 data class Article(
-    val author: String? = "",
-    val title: String? = "",
-    val description: String? = ""
+    val source: Source,
+    val title: String,
+    val urlToImage: String,
+    val description: String,
+    val publishedAt: String
+)
+
+data class Source(
+    val id: String? = "",
+    val name: String
 )

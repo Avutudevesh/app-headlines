@@ -18,6 +18,11 @@ class HeadlinesListAdapter @Inject constructor() :
         holder.bind(item)
     }
 
+    override fun onViewRecycled(holder: HeadlinesViewHolder) {
+        super.onViewRecycled(holder)
+        holder.clearImageLoading()
+    }
+
 }
 
 class HeadlinesListDiffCallback : DiffUtil.ItemCallback<Article>() {
