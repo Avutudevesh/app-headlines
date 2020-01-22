@@ -2,6 +2,7 @@ package com.example.headlines
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.Observer
 import com.example.headlines.view.HeadlinesListAdapter
 import com.example.headlines.viewmodel.NewsHeadlinesViewModel
@@ -20,7 +21,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_main)
+        setUpViewModel()
+        setUpActionBar()
         headlines_list.adapter = headlinesListAdapter
+    }
+
+    private fun setUpActionBar() {
+        supportActionBar?.apply {
+            displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+            setCustomView(R.layout.actionbar)
+        }
+    }
+    private fun setUpViewModel() {
         viewModel.state().observe(this, Observer { onStateChanged(it) })
         viewModel.fetchNewsHeadlines()
     }
