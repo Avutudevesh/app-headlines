@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.example.headlines.network.Article
-import com.example.headlines.view.ArticleFragment
+import com.example.headlines.view.ArticleActivity
 import com.example.headlines.view.HeadlinesListFragment
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
@@ -35,9 +35,6 @@ class MainActivity : DaggerAppCompatActivity(), HeadlinesListFragment.OnHeadline
     }
 
     override fun onArticleSelected(article: Article) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ArticleFragment.newInstance(article))
-            .addToBackStack(null)
-            .commit()
+        startActivity(ArticleActivity.getStartIntent(this, article))
     }
 }

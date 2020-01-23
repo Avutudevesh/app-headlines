@@ -1,11 +1,9 @@
 package com.example.headlines.view
 
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -24,7 +22,7 @@ class ArticleFragment : Fragment() {
 
     companion object {
         private const val INTENT_EXTRA_ARTICLE = "article"
-        fun newInstance(article: Article) = ArticleFragment::class.java.newInstance().apply {
+        fun newInstance(article: Article?) = ArticleFragment::class.java.newInstance().apply {
             arguments = bundleOf(INTENT_EXTRA_ARTICLE to article)
         }
     }
@@ -49,18 +47,11 @@ class ArticleFragment : Fragment() {
             article_source.text = source.name
             urlToImage?.let {
                 Glide.with(article_image.context).load(it)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .dontAnimate()
-                    .fitCenter()
+                    .skipMemoryCache(true)
                     .into(article_image)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        (activity as AppCompatActivity).apply {
-//            supportActionBar?.hide()
-//        }
     }
 }
