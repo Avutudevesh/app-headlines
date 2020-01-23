@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.headlines.R
@@ -53,6 +54,11 @@ class HeadlinesListFragment : Fragment() {
         viewModel.state().observe(this, Observer { onStateChanged(it) })
         viewModel.fetchNewsHeadlines()
         viewModel.clickedArticleLiveData.observe(this, Observer { onArticleClicked(it) })
+        viewModel.articleListLiveData.observe(this, Observer { setHeadlinesOnChanged(it) })
+    }
+
+    private fun setHeadlinesOnChanged(list: List<Article>) {
+        headlinesListAdapter.submitList(list)
     }
 
     private fun onArticleClicked(article: Article) {
@@ -61,14 +67,14 @@ class HeadlinesListFragment : Fragment() {
 
     private fun onStateChanged(state: NewsHeadlinesViewModel.State) {
         when (state) {
-            is NewsHeadlinesViewModel.State.Success -> {
-                headlinesListAdapter.submitList(state.result.articles)
-            }
             is NewsHeadlinesViewModel.State.Loading -> {
-
+                //TODO: Implement loading state
+                Toast.makeText(context, "Loading Headlines", Toast.LENGTH_SHORT).show()
             }
             is NewsHeadlinesViewModel.State.Error -> {
-
+                //TODO: Implement error state
+                Toast.makeText(context, "Error Loading, Check your Network", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }

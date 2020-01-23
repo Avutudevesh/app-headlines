@@ -1,15 +1,19 @@
 package com.example.headlines.inject
 
 import com.example.headlines.HeadlinesApplication
+import com.example.headlines.db.DatabaseModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import javax.inject.Singleton
 
+@Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
         ActivityBindings::class,
-        FragmentBindings::class
+        FragmentBindings::class,
+        DatabaseModule::class
     ]
 )
 interface AppComponent {
