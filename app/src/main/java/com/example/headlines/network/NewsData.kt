@@ -14,13 +14,13 @@ data class NewsData(
 data class Article(
     val source: Source,
     val title: String,
-    val urlToImage: String,
-    val description: String,
-    val publishedAt: String
+    val urlToImage: String?,
+    val description: String? = " ",
+    val publishedAt: String? = " "
 ) : Parcelable
 
 @Parcelize
 data class Source(
     val id: String? = "",
-    val name: String
+    val name: String = " "
 ) : Parcelable

@@ -42,11 +42,13 @@ class HeadlinesViewHolder(itemView: View) :
         Glide.with(headlineImage.context).clear(headlineImage)
     }
 
-    private fun loadBackGroundImage(url: String) {
-        Glide.with(itemView.context).load(url)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .dontAnimate()
-            .fitCenter()
-            .into(headlineImage)
+    private fun loadBackGroundImage(url: String?) {
+        url?.let{
+            Glide.with(itemView.context).load(it)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate()
+                .fitCenter()
+                .into(headlineImage)
+        }
     }
 }

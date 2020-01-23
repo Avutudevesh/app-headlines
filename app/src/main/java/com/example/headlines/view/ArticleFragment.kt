@@ -1,10 +1,10 @@
 package com.example.headlines.view
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -39,22 +39,28 @@ class ArticleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        back_button.setOnClickListener {
+            activity?.onBackPressed()
+        }
         articleArgument.apply {
             article_title.text = title
             article_description.text = description
             article_publish_date.text = publishedAt
             article_source.text = source.name
-            Glide.with(article_image.context).load(urlToImage)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .fitCenter()
-                .into(article_image)
+            urlToImage?.let {
+                Glide.with(article_image.context).load(it)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .dontAnimate()
+                    .fitCenter()
+                    .into(article_image)
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.hide()
-
+//        (activity as AppCompatActivity).apply {
+//            supportActionBar?.hide()
+//        }
     }
 }
