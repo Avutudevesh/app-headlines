@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.headlines.R
 import com.example.headlines.network.Article
+import com.example.headlines.utils.DateTimeFormatterUtil
 import com.example.headlines.viewmodel.NewsHeadlinesViewModel
 
 class HeadlinesViewHolder(itemView: View) :
@@ -31,7 +32,7 @@ class HeadlinesViewHolder(itemView: View) :
     fun bind(item: Article, viewModel: NewsHeadlinesViewModel) {
         source.text = item.source.name
         title.text = item.title
-        publishDate.text = item.publishedAt
+        publishDate.text = item.publishedAt?.let { DateTimeFormatterUtil.formatDateTime(it) } ?: " "
         loadBackGroundImage(item.urlToImage)
         itemView.setOnClickListener {
             viewModel.setClickedArticle(item)
@@ -43,7 +44,7 @@ class HeadlinesViewHolder(itemView: View) :
     }
 
     private fun loadBackGroundImage(url: String?) {
-        url?.let{
+        url?.let {
             Glide.with(itemView.context).load(it)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontAnimate()

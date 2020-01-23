@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.headlines.R
 import com.example.headlines.network.Article
+import com.example.headlines.utils.DateTimeFormatterUtil
 import kotlinx.android.synthetic.main.article_fragment.*
 import java.lang.IllegalArgumentException
 
@@ -43,7 +44,8 @@ class ArticleFragment : Fragment() {
         articleArgument.apply {
             article_title.text = title
             article_description.text = description
-            article_publish_date.text = publishedAt
+            article_publish_date.text =
+                publishedAt?.let { DateTimeFormatterUtil.formatDateTime(it) } ?: " "
             article_source.text = source.name
             urlToImage?.let {
                 Glide.with(article_image.context).load(it)
