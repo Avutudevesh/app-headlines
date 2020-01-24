@@ -48,6 +48,10 @@ class HeadlinesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         headlines_list.adapter = headlinesListAdapter
+        swipe_refresh.setOnRefreshListener {
+            viewModel.fetchNewsHeadlines()
+            swipe_refresh.isRefreshing = false
+        }
     }
 
     private fun setUpViewModel() {
