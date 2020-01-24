@@ -2,7 +2,9 @@ package com.example.headlines.view
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.headlines.R
 import com.example.headlines.network.Article
