@@ -5,6 +5,7 @@ import retrofit2.http.Query
 
 interface NewsApiService {
 
+    //TODO: Move the api key into properties file and read from build config
     @GET("top-headlines")
     suspend fun getNewsHeadlines(
         @Query("country") country: String = "us",
