@@ -49,9 +49,8 @@ class ArticleFragment : Fragment() {
             article_source.text = source.name
             urlToImage?.let {
                 Glide.with(article_image.context).load(it)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .dontAnimate()
-                    .skipMemoryCache(true)
                     .into(article_image)
             }
         }
