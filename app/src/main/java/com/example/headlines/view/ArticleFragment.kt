@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.headlines.R
+import com.example.headlines.compose.views.HeadlineArticleScreen
 import com.example.headlines.network.Article
 import com.example.headlines.utils.DateTimeFormatterUtil
 import kotlinx.android.synthetic.main.article_fragment.*
@@ -33,25 +36,13 @@ class ArticleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.article_fragment, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        back_button.setOnClickListener {
-            activity?.onBackPressed()
-        }
-        articleArgument.apply {
-            article_title.text = title
-            article_description.text = description
-            article_publish_date.text =
-                publishedAt?.let { DateTimeFormatterUtil.formatDateTime(it) } ?: " "
-            article_source.text = source.name
-            urlToImage?.let {
-                Glide.with(article_image.context).load(it)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .dontAnimate()
-                    .into(article_image)
+        return inflater.inflate(R.layout.article_compose_fragment, container, false).apply {
+            findViewById<ComposeView>(R.id.article_compose_root).setContent {
+                MaterialTheme {
+                    HeadlineArticleScreen(article = articleArgument){
+                        activity?.onBackPressed()
+                    }
+                }
             }
         }
     }

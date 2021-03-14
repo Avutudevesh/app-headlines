@@ -1,5 +1,6 @@
 package com.example.headlines.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.headlines.network.Article
@@ -33,6 +34,7 @@ class NewsHeadlinesViewModelImpl @Inject constructor(
                 stateLiveData.value = State.Loading
                 newsHeadlinesRepository.fetchNewsHeadlines()
             } catch (e: Exception) {
+                Log.e("network error", e.message.orEmpty())
                 stateLiveData.value = State.Error
             }
         }
