@@ -1,6 +1,6 @@
 package com.example.headlines.viewmodel.injection
 
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.headlines.view.HeadlinesListFragment
 import com.example.headlines.viewmodel.NewsHeadlinesViewModel
 import com.example.headlines.viewmodel.NewsHeadlinesViewModelFactory
@@ -25,5 +25,5 @@ class NewsHeadlinesViewModelModule {
         fragment: HeadlinesListFragment,
         viewModelFactory: NewsHeadlinesViewModelFactory
     ): NewsHeadlinesViewModel =
-        ViewModelProviders.of(fragment, viewModelFactory).get(NewsHeadlinesViewModel::class.java)
+        ViewModelProvider(fragment, viewModelFactory).get(NewsHeadlinesViewModel::class.java)
 }

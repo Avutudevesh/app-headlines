@@ -17,9 +17,6 @@ import javax.inject.Inject
 class HeadlinesListFragment : Fragment() {
 
     @Inject
-    lateinit var headlinesListAdapter: HeadlinesListAdapter
-
-    @Inject
     lateinit var viewModel: NewsHeadlinesViewModel
 
     private lateinit var callback: OnHeadlineSelectedListener

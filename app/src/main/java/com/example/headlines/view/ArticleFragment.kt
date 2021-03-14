@@ -8,13 +8,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.headlines.R
 import com.example.headlines.compose.views.HeadlineArticleScreen
 import com.example.headlines.network.Article
-import com.example.headlines.utils.DateTimeFormatterUtil
-import kotlinx.android.synthetic.main.article_fragment.*
 import java.lang.IllegalArgumentException
 
 class ArticleFragment : Fragment() {
