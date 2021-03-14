@@ -6,17 +6,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -129,5 +126,14 @@ fun HeadlineArticleScreen(article: Article, onBackClicked: () -> Unit) {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun HeadlinesTopBar() {
+    Box(modifier = Modifier.background(color = Color.Black).fillMaxWidth()){
+        Text(text = "Headlines", modifier = Modifier
+            .align(Center)
+            .padding(16.dp), style = TextStyle(color=Color.White, fontSize = 30.sp))
     }
 }

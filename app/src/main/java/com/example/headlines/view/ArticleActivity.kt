@@ -2,11 +2,12 @@ package com.example.headlines.view
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.MaterialTheme
 import com.example.headlines.R
+import com.example.headlines.compose.views.HeadlineArticleScreen
 import com.example.headlines.network.Article
 
 class ArticleActivity : AppCompatActivity() {
@@ -16,15 +17,20 @@ class ArticleActivity : AppCompatActivity() {
             Intent(context, ArticleActivity::class.java).putExtra("article", article)
     }
 
+    private val article: Article?
+        get() = intent.getParcelableExtra("article")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.ArticleTheme)
-        setContentView(R.layout.activity_article)
-        supportFragmentManager.beginTransaction()
-            .add(
-                R.id.article_fragment_container,
-                ArticleFragment.newInstance(intent.getParcelableExtra("article"))
-            )
-            .commit()
+        article?.let {
+            setContent {
+                MaterialTheme {
+                    HeadlineArticleScreen(article = it) {
+                        this.onBackPressed()
+                    }
+                }
+            }
+        }
     }
 }

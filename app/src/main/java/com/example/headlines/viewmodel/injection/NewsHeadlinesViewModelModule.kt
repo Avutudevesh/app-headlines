@@ -1,7 +1,7 @@
 package com.example.headlines.viewmodel.injection
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.headlines.view.HeadlinesListFragment
+import com.example.headlines.view.MainActivity
 import com.example.headlines.viewmodel.NewsHeadlinesViewModel
 import com.example.headlines.viewmodel.NewsHeadlinesViewModelFactory
 import dagger.Module
@@ -22,8 +22,8 @@ class NewsHeadlinesViewModelModule {
 
     @Provides
     internal fun provideViewModel(
-        fragment: HeadlinesListFragment,
+        activity: MainActivity,
         viewModelFactory: NewsHeadlinesViewModelFactory
     ): NewsHeadlinesViewModel =
-        ViewModelProvider(fragment, viewModelFactory).get(NewsHeadlinesViewModel::class.java)
+        ViewModelProvider(activity, viewModelFactory).get(NewsHeadlinesViewModel::class.java)
 }
